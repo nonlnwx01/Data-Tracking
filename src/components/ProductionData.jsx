@@ -26,7 +26,7 @@ const ProductionData = (props) => {
         };
         fetchData();
     }, []);
-<<<<<<< HEAD
+
     // 
     const handleChange = (DatePicker) => {
         console.log(productions);
@@ -43,7 +43,7 @@ const ProductionData = (props) => {
             setTransactions(productions)
         }
     }
-=======
+
 
     const formatDateFromISO = (isoString) => {
         const date = new Date(isoString);  // แปลงจาก ISO string เป็น Date object
@@ -53,8 +53,8 @@ const ProductionData = (props) => {
             day: '2-digit',
         });
     };
-    
->>>>>>> 48b37500dcbd7cf1e3ca1a762f49650f4fb169b8
+
+
     return (
         <div>
             {/* Navbar */}
@@ -79,12 +79,12 @@ const ProductionData = (props) => {
             {/* Content */}
             <Container className="mt-5">
                 <h1 className="text-center mb-4">ข้อมูลผลผลิต</h1>
-                
+
                 <RangePicker
                     defaultValue={[dayjs(), dayjs()]}
                     format={dateFormat}
                     onChange={handleChange}
-                    style={{ display: 'flex', width: '50%', marginBottom: 10}}
+                    style={{ display: 'flex', width: '50%', marginBottom: 10 }}
                 />
                 <Row>
                     {transactions.map((production, index) => (

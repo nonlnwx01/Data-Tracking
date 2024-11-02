@@ -11,7 +11,7 @@ const EmployeeData = (props) => {
     useEffect(() => {
         fetchData();
     }, []);
-<<<<<<< HEAD
+
     const fetchData = async () => {
         try {
             const querySnapshot = await getDocs(collection(db, "employee"));
@@ -23,7 +23,7 @@ const EmployeeData = (props) => {
         }
     };
     console.log(employees);
-=======
+
     const formatDateFromISO = (isoString) => {
         const date = new Date(isoString);  // แปลงจาก ISO string เป็น Date object
         return date.toLocaleDateString('th-TH', {
@@ -33,7 +33,7 @@ const EmployeeData = (props) => {
         });
     };
 
->>>>>>> 48b37500dcbd7cf1e3ca1a762f49650f4fb169b8
+
     return (
         <div>
             {/* Navbar */}
