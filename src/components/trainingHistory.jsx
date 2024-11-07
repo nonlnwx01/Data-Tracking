@@ -18,6 +18,7 @@ export default function trainingHistory() {
     const [title, setTitle] = useState('');
     const [hourusge, setHourusge] = useState('');
     const [creater, setCreater] = useState('');
+   
 
 
 

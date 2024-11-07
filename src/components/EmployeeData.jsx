@@ -33,7 +33,7 @@ const EmployeeData = (props) => {
         });
     };
 
-
+    console.log(employees);
     return (
         <div>
             {/* Navbar */}

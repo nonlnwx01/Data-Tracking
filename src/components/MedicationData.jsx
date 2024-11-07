@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase';
 import { Container, Row, Col, Card, Navbar, Nav, Button } from 'react-bootstrap';
-import { DatePicker } from 'antd';
+import { DatePicker, Row as AntRow, Col as AntCol, Input } from 'antd';
 import dayjs from 'dayjs';
 
 const { RangePicker } = DatePicker;
@@ -11,6 +11,12 @@ const MedicationData = (props) => {
     const { setIsLogin } = props;
     const [medications, setMedications] = useState([]);
     const [transactions, setTransactions] = useState([]);
+    const [filter, setFilter] = useState("");
+
+
+    const handleInputChange = (event) => {
+        setFilter(event.target.value.toUpperCase());
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,28 +80,37 @@ const MedicationData = (props) => {
             {/* Content */}
             <Container className="mt-5">
                 <h1 className="text-center mb-4">ข้อมูลการใช้ยารักษา</h1>
-                <RangePicker
-                    defaultValue={[dayjs(), dayjs()]}
-                    format={dateFormat}
-                    onChange={handleChange}
-                    style={{ display: 'flex', width: '100%', marginBottom: 10 }}
-                />
                 <Row>
-                    {transactions.map((medication, index) => (
-                        <Col key={index} sm={12} md={6} lg={4} className="mb-4">
-                            <Card>
-                                <Card.Body>
-                                    <Card.Title><strong> วันที่: {formatDateFromISO(medication.date)}</strong></Card.Title>
-                                    <Card.Text>
-                                        <strong>บ่อเลี้ยง:</strong> {medication.pond} <br />
-                                        <strong>รุ่นการเพาะเลี้ยง:</strong> {medication.Generation} <br />
-                                        <strong>ชื่อยา:</strong> {medication.medicine} <br />
-                                        <strong>ปริมาณการใช้:</strong> {medication.dosage}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    ))}
+                    <Col span={12}>
+                        <RangePicker
+                            defaultValue={[dayjs(), dayjs()]}
+                            format={dateFormat}
+                            onChange={handleChange}
+                            style={{ display: 'flex', width: '100%', marginBottom: 10 }}
+                        />
+                    </Col>
+                    <Col span={12}> <Input onChange={handleInputChange} placeholder="กรุณากรอกเลขบ่อเลี้ยง" /> </Col>
+                </Row>
+
+                <Row>
+                    {transactions.map((medication, index) => {
+                        const isVisible = medication.pond.toUpperCase().includes(filter);
+                        return (
+                            <Col key={index} sm={12} md={6} lg={4} className="mb-4" style={{ display: isVisible ? "" : "none" }}>
+                                <Card>
+                                    <Card.Body>
+                                        <Card.Title><strong> วันที่: {formatDateFromISO(medication.date)}</strong></Card.Title>
+                                        <Card.Text>
+                                            <strong>บ่อเลี้ยง:</strong> {medication.pond} <br />
+                                            <strong>รุ่นการเพาะเลี้ยง:</strong> {medication.Generation} <br />
+                                            <strong>ชื่อยา:</strong> {medication.medicine} <br />
+                                            <strong>ปริมาณการใช้:</strong> {medication.dosage}
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+                            </Col>)
+                    }
+                    )}
                 </Row>
             </Container>
         </div>
